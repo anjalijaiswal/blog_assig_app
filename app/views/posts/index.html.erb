@@ -1,0 +1,58 @@
+<div class="mini-belt">
+  Posts
+  <!-- <%= 'Most Popular'%> -->
+  <div class="dropdown dropdown-menu-right", style="position: relative; display: inline;">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      Sort
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <li><%= link_to "Most Popular", most_popular_path %></li>
+      <li><%= link_to "Latest", latest_path %></li>
+    </ul>
+  </div>
+</div>
+<div class="container text-center">
+  <div class="col-sm-10 col-sm-offset-1 col-xs-12 blog-content">
+    <% @posts.each_with_index do |post, index| %>
+      <% rowfinder = index % 2 %>
+      <div class="row">
+      <% if rowfinder == 0 %>
+          <div class="col-md-6 col-sm-6">
+            <article class='blog-trailer'>
+              <header>
+                <h3><%= link_to(post.title, post_path(post)) %></h3>
+                <span class="meta"><%= post.created_at.to_date %></span>
+              </header>
+              <hr>
+              <div class="body">
+                <p><%= truncate(post.body, :length => 80) %></p>
+              </div>
+              <hr>
+              <div class="clearfix">
+                <%= link_to('Read more', post_path(post), class: "btn btn-read-more") %>
+              </div>
+            </article>
+          </div>
+      <% elsif rowfinder == 1 %>
+        <div class="col-md-6 col-sm-6">
+          <article class='blog-trailer'>
+            <header>
+              <h3><%= link_to(post.title, post_path(post)) %></h3>
+              <span class="meta"><%= post.created_at.to_date %></span>
+            </header>
+            <hr>
+            <div class="body">
+              <p><%= truncate(post.body, :length => 80) %></p>
+            </div>
+            <hr>
+            <div class="clearfix">
+              <%= link_to('Read more', post_path(post), class: "btn btn-read-more") %>
+            </div>
+          </article>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+</div>
