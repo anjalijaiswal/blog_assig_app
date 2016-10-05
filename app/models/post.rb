@@ -14,4 +14,9 @@ class Post < ApplicationRecord
   def unique_impression_count
     impressions.group(:ip_address).size
   end
+
+  def self.search(search)
+    where("title ILIKE ?", "%#{search}%")
+    where("body ILIKE ?", "%#{search}%")
+  end
 end

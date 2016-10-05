@@ -3,7 +3,13 @@ class PostsController < ApplicationController
   before_filter :log_impression, only: :show
 
   def index
-    @posts = Post.all
+    if params[:search]
+      @posts = Post.search(params[:search]).order("created_at DESC")
+      flash[:notice] = "No post matches the term(s) #{params[:search]}" if @posts.empty?
+    else
+      @posts = Post.all
+      flash[:notice] = "No post created" if @posts.empty?
+    end
   end
 
   def most_popular
@@ -11,8 +17,8 @@ class PostsController < ApplicationController
     render template: 'posts/index'
   end
 
-  def search
-  end
+  # def search
+  # end
 
   def latest
     @posts = Post.order(created_at: :desc)
