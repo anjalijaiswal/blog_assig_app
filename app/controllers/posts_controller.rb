@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, except: [:index, :most_popular, :latest, :new]
+  before_action :set_post, except: [:index, :most_popular, :latest, :new, :create]
   before_filter :log_impression, only: :show
 
   def index
@@ -16,9 +16,6 @@ class PostsController < ApplicationController
     @posts = Post.order(count: :desc)
     render template: 'posts/index'
   end
-
-  # def search
-  # end
 
   def latest
     @posts = Post.order(created_at: :desc)
